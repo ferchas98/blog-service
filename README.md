@@ -58,7 +58,7 @@ Solicitud:
 }
 ```
 
-2. GET /user/ : Obtiene la información de un usuario por ID.
+2. GET /user/id : Obtiene la información de un usuario por ID.
 
 Respuesta:
 
