@@ -31,7 +31,7 @@ DB_USER=
 DB_PASSWORD=
 DB_HOST=
 DB_NAME=
-
+PORT=
 JWT_SECRET=
 ```
 
@@ -58,7 +58,7 @@ Solicitud:
 }
 ```
 
-2. GET /user/id : Obtiene la información de un usuario por ID.
+2. GET /user/userId : Obtiene la información de un usuario por ID.
 
 Respuesta:
 
@@ -100,7 +100,7 @@ Solicitud:
 }
 ```
 
-2. GET /posts: Lista todos los posts. Soporta filtrado por título usando un query param llamado search.
+2. GET /posts: Lista todos los posts.
 
 Respuesta:
 
@@ -121,7 +121,8 @@ Respuesta:
 ]
 ```
 
-3. PATCH /posts/ : Actualiza un post (requiere autenticación).
+3. PATCH /posts/postId : Actualiza un post (requiere autenticación).
+   Headers: Agrega un header llamado Authorization con el valor del token
 
 Solicitud:
 
@@ -132,7 +133,7 @@ Solicitud:
 }
 ```
 
-4. DELETE /posts/: Elimina un post (requiere autenticación).
+4. DELETE /posts/postId : Elimina un post (requiere autenticación).
 
 Respuesta:
 

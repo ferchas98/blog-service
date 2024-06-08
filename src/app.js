@@ -1,37 +1,26 @@
-require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
-const createError = require("http-errors");
+const dotenv = require("dotenv");
+const connectDB = require("./config/database");
+const errorHandler = require("./middlewares/errorHandler");
 
-const userRoutes = require("./routes/userRoutes");
-const authRoutes = require("./routes/authRoutes");
-const postRoutes = require("./routes/postRoutes");
-const errorMiddleware = require("./middleware/errorMiddleware");
+dotenv.config();
 
 const app = express();
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
-const URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`;
-
-mongoose
-  .connect(URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log(err));
+// Connect to database
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Rutas
-app.use("/user", userRoutes);
-app.use("/auth", authRoutes);
-app.use("/posts", postRoutes);
+// Routes
+app.use(require("./routes/userRoutes"));
+app.use(require("./routes/authRoutes"));
+app.use(require("./routes/postRoutes"));
 
-// Middleware para manejo de errores
-app.use((req, res, next) => {
-  next(createError(404, "Not Found"));
-});
-app.use(errorMiddleware);
+// Error handler middleware
+app.use(errorHandler);
 
 module.exports = app;
