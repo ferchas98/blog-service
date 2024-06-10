@@ -8,19 +8,24 @@ dotenv.config();
 
 const app = express();
 
-// Connect to database
+// Conectar a la base de datos
 connectDB();
 
-// Middleware
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Rutas
 app.use(require("./routes/userRoutes"));
 app.use(require("./routes/authRoutes"));
 app.use(require("./routes/postRoutes"));
 
-// Error handler middleware
+// Manejo de rutas no encontradas (404)
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Not Found" });
+});
+
+// Middleware para manejar errores
 app.use(errorHandler);
 
 module.exports = app;
