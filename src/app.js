@@ -15,6 +15,11 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Ruta raíz
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Ready APIv1" });
+});
+
 // Rutas
 app.use(require("./routes/userRoutes"));
 app.use(require("./routes/authRoutes"));
